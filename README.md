@@ -1,6 +1,6 @@
 # Autovocoder: Fast Waveform Generation from a Learned Speech Representation using Differentiable Digital Signal Processing
 Unofficial Pytorch implementation of [Autovocoder: Fast Waveform Generation from a Learned Speech Representation using Differentiable Digital Signal Processing](https://arxiv.org/abs/2211.06989).
-This repository is based on **[iSTFTNet](https://github.com/rishikksh20/iSTFTNet-pytorch) [Paper](https://arxiv.org/abs/2203.02395)**.<br>
+This repository is based on **[iSTFTNet github](https://github.com/rishikksh20/iSTFTNet-pytorch) [(Paper)](https://arxiv.org/abs/2203.02395)**.<br>
 
 ![](AutoVocoder.jpeg)
 

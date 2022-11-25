@@ -1,15 +1,17 @@
 # Autovocoder: Fast Waveform Generation from a Learned Speech Representation using Differentiable Digital Signal Processing
-This repo try to implement [Autovocoder: Fast Waveform Generation from a Learned Speech Representation using Differentiable Digital Signal Processing](https://arxiv.org/abs/2211.06989).
+Unofficial Pytorch implementation of [Autovocoder: Fast Waveform Generation from a Learned Speech Representation using Differentiable Digital Signal Processing](https://arxiv.org/abs/2211.06989).
+This repository is based on **[iSTFTNet](https://github.com/rishikksh20/iSTFTNet-pytorch) [Paper](https://arxiv.org/abs/2203.02395)**.<br>
+
 ![](AutoVocoder.jpeg)
-`Disclaimer : This repo is build for testing purpose. The code is not optimized for performance.`
+
+`Disclaimer : This repo is build for testing purpose. Welcome your contributions.`
 ## Training :
 ```
-python train.py --config config_v1.json
+python train.py --config config.json
 ```
+In `config.json`, change `latent_dim` for `AV128`, `AV192`, and `AV256`. (Default: `AV256`)
 
 ## Note:
-<!-- * We are able to get good quality of audio with 30 % less training compared to original hifigan.
-* This model approx 60 % faster than counterpart hifigan. -->
 
 ## Citations :
 ```

@@ -120,7 +120,7 @@ class Generator(torch.nn.Module):
         # (B, 4, N, T') -> (B, 2, N, T') (default) or (B, 4, N, T')
         x = self.conv_post(x)
         
-        if self.dec_istft_input == 'cartesian' #! default
+        if self.dec_istft_input == 'cartesian': #! default
             real = x[:,0,:,:]
             imag = x[:,1,:,:]
             wav = self.stft.cartesian_inverse(real, imag)

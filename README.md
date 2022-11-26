@@ -9,7 +9,7 @@ This repository is based on **[iSTFTNet github](https://github.com/rishikksh20/i
 ```
 python train.py --config config.json
 ```
-Change `--input_wavs_dir` to the directory of LJSpeech-1.1/wavs.
+In `train.py`, change `--input_wavs_dir` to the directory of LJSpeech-1.1/wavs.<br>
 In `config.json`, change `latent_dim` for `AV128`, `AV192`, and `AV256` (Default).<br>
 Considering `Section 3.3`, you can select `dec_istft_input` between `cartesian` (Default), `polar`, and `both`.
 

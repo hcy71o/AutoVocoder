@@ -34,10 +34,6 @@ def train(rank, a, h):
     generator = Generator(h).to(device)
     mpd = MultiPeriodDiscriminator().to(device)
     msd = MultiScaleDiscriminator().to(device)
-    #* iSTFTNet
-    # stft = TorchSTFT(device, filter_length=h.gen_istft_n_fft, hop_length=h.gen_istft_hop_size, win_length=h.gen_istft_n_fft).to(device)
-    #* AutoVocoder
-    # stft = TorchSTFT(device, filter_length=h.n_fft, hop_length=h.hop_size, win_length=h.win_size).to(device)
 
     if rank == 0:
         print(generator)
@@ -216,8 +212,6 @@ def train(rank, a, h):
                                     
                             l = encoder(x.to(device))                    
                             y_g_hat = generator(l)
-
-                            # y_g_hat = stft.cartesian_inverse(real, imag)
 
                             y_mel = torch.autograd.Variable(y_mel.to(device, non_blocking=True))
                             y_g_hat_mel = mel_spectrogram(y_g_hat.squeeze(1), h.n_fft, h.num_mels, h.sampling_rate,

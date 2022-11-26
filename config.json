@@ -10,6 +10,7 @@
     "n_blocks": 11,
     "latent_dim": 256,
     "latent_dropout": 0.1,
+    "dec_istft_input": "cartesian",
 
     "segment_size": 8192,
     "num_mels": 80,

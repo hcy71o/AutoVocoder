@@ -74,7 +74,6 @@ def mel_spectrogram(y, n_fft, num_mels, sampling_rate, hop_size, win_size, fmin,
 
 def complex_components(y, n_fft, hop_size, win_size, center=False):
     if torch.min(y) < -1.:
-        print('b')
         print('min value is ', torch.min(y))
     if torch.max(y) > 1.:
         print('max value is ', torch.max(y))

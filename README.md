@@ -9,7 +9,8 @@ This repository is based on **[iSTFTNet github](https://github.com/rishikksh20/i
 ```
 python train.py --config config.json
 ```
-In `config.json`, change `latent_dim` for `AV128`, `AV192`, and `AV256`. (Default: `AV256`)
+In `config.json`, change `latent_dim` for `AV128`, `AV192`, and `AV256` (Default: `AV256`).<br>
+Considering `Section 3.3`, you can select `dec_istft_input` between `cartesian`, `polar`, and `both` (Default: `cartesian`).
 
 ## Note:
 

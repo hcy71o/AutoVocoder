@@ -94,7 +94,13 @@ class Generator(torch.nn.Module):
             else:
                 self.decs.append(EncResBlock(4,4))
                 
-        self.conv_post = Conv2d(4,2,3,1,padding=1) #! Predict Real/Img
+        self.dec_istft_input = h.dec_istft_input
+        
+        if self.dec_istft_input == 'cartesian' or 'polar':
+            self.conv_post = Conv2d(4,2,3,1,padding=1) # Predict Real/Img (default) or Magitude/Phase
+        elif self.dec_istft_input == 'both':
+            self.conv_post = Conv2d(4,4,3,1,padding=1) # Predict Real/ImgMagitude/Phase
+        
         self.reflection_pad = nn.ReflectionPad1d((1, 0))
         self.stft = TorchSTFT(filter_length=h.n_fft, hop_length=h.hop_size, win_length=h.win_size)
         
@@ -111,13 +117,24 @@ class Generator(torch.nn.Module):
         x = x.contiguous().view(x.size(0),-1,x.size(-1)) # (B, 4N, T)
         x = self.reflection_pad(x)
         x = x.contiguous().view(x.size(0),4,-1,x.size(-1)) # (B, 4N, T') -> (B, 4, N, T')
-        # (B, 4, N, T') -> (B, 2, N, T')
+        # (B, 4, N, T') -> (B, 2, N, T') (default) or (B, 4, N, T')
         x = self.conv_post(x)
-        real = x[:,0,:,:]
-        imag = x[:,1,:,:]
-        # real, imag = x.chunk(2, dim=-1)
-        wav = self.stft.cartesian_inverse(real, imag)
         
+        if self.dec_istft_input == 'cartesian' #! default
+            real = x[:,0,:,:]
+            imag = x[:,1,:,:]
+            wav = self.stft.cartesian_inverse(real, imag)
+        elif self.dec_istft_input == 'polar':
+            magnitude = x[:,0,:,:]
+            phase = x[:,1,:,:]
+            wav = self.stft.polar_inverse(magnitude, phase)
+        elif self.dec_istft_input == 'both':
+            real = x[:,0,:,:]
+            imag = x[:,1,:,:]
+            magnitude = x[:,2,:,:]
+            phase = x[:,3,:,:]
+            wav = self.stft.both_inverse(real, imag, magnitude, phase)
+            
         return wav
 
 class DiscriminatorP(torch.nn.Module):

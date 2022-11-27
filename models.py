@@ -9,7 +9,7 @@ from stft import TorchSTFT
 LRELU_SLOPE = 0.1
 
 
-class EncResBlock(torch.nn.Module):
+class ResBlock(torch.nn.Module):
     def __init__(self, in_ch, out_ch):
         super().__init__()
         self.convs = nn.ModuleList([
@@ -37,11 +37,11 @@ class Encoder(torch.nn.Module):
         middle = h.n_blocks//2 + 1
         for i in range(1, h.n_blocks+1):
             if i < middle:
-                self.encs.append(EncResBlock(4,4))
+                self.encs.append(ResBlock(4,4))
             elif i == middle:
-                self.encs.append(EncResBlock(4,1))
+                self.encs.append(ResBlock(4,1))
             else:
-                self.encs.append(EncResBlock(1,1))
+                self.encs.append(ResBlock(1,1))
                 
         self.linear = nn.Linear(h.win_size//2+1,h.latent_dim)
         self.dropout = nn.Dropout(h.latent_dropout)
@@ -58,26 +58,6 @@ class Encoder(torch.nn.Module):
         x = self.dropout(x)
         
         return x
-
-class DecResBlock(torch.nn.Module):
-    def __init__(self, in_ch, out_ch):
-        super().__init__()
-        self.convs = nn.ModuleList([
-            Conv2d(in_ch, out_ch, kernel_size=3, padding=1),
-            BatchNorm2d(out_ch),
-            nn.ReLU()
-        ])
-        self.out_ch = out_ch
-        self.in_ch = in_ch
-
-    def forward(self, x):
-        for c in self.convs:
-            res = c(x)
-            if self.out_ch == self.in_ch:
-                x = res + x
-            else:
-                x = res
-        return x
     
 class Generator(torch.nn.Module):
     def __init__(self, h):
@@ -88,11 +68,11 @@ class Generator(torch.nn.Module):
         middle = h.n_blocks//2 + 1
         for i in range(1, h.n_blocks+1):
             if i < middle:
-                self.decs.append(EncResBlock(1,1))
+                self.decs.append(ResBlock(1,1))
             elif i == middle:
-                self.decs.append(EncResBlock(1,4))
+                self.decs.append(ResBlock(1,4))
             else:
-                self.decs.append(EncResBlock(4,4))
+                self.decs.append(ResBlock(4,4))
                 
         self.dec_istft_input = h.dec_istft_input
         

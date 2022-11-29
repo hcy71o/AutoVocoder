@@ -5,7 +5,7 @@ This repository is based on **[iSTFTNet github](https://github.com/rishikksh20/i
 <p align="center"><img src="AutoVocoder.jpeg" width="85%"></p>
 
 
-`Disclaimer : This repo is built for testing purpose. Welcome your contributions.`
+`Disclaimer : This repo is built for testing purpose.`
 ## Training :
 ```
 python train.py --config config.json

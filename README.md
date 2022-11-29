@@ -15,6 +15,10 @@ In `config.json`, change `latent_dim` for `AV128`, `AV192`, and `AV256` (Default
 Considering `Section 3.3`, you can select `dec_istft_input` between `cartesian` (Default), `polar`, and `both`.
 
 ## Note:
+* Validation loss of `AV256` during training. 
+  <p align="left"><img src="AutoVocoder_validation.jpg" width="30%"></p>
+
+* So far, it converges almost 3X times faster than HiFi-V1 (referring to the official [repo](https://github.com/jik876/hifi-gan)).
 
 ## Citations :
 ```

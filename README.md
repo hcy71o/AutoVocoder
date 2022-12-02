@@ -16,9 +16,9 @@ Considering `Section 3.3`, you can select `dec_istft_input` between `cartesian` 
 
 ## Note:
 * Validation loss of `AV256` during training. 
-  <p align="left"><img src="AutoVocoder_validation.jpg" width="30%"></p>
+  <p align="left"><img src="AutoVocoder_validation.jpg" width="40%"></p>
 
-* So far, it converges almost 3X times faster than HiFi-V1 (referring to the official [repo](https://github.com/jik876/hifi-gan)).
+* In our test, it converges almost 3X times faster than HiFi-V1 (referring to the official [repo](https://github.com/jik876/hifi-gan)).
 
 ## Citations :
 ```
